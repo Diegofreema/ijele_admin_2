@@ -4,6 +4,7 @@ type Props = ButtonProps & {
   onClick: () => void;
   title: string;
   loading?: boolean;
+  bg?: string;
 };
 
 export const CustomButton = ({
@@ -19,6 +20,7 @@ export const CustomButton = ({
       {...props}
       onClick={onClick}
       isLoading={loading}
+      isDisabled={loading}
       bg={bg}
       color="white"
       borderRadius={borderRadius}

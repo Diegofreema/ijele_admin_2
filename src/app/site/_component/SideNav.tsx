@@ -1,5 +1,6 @@
 'use client';
-import { Box, Flex, Icon, Text } from '@chakra-ui/react';
+import { Box, Flex, Icon, OrderedList, Text } from '@chakra-ui/react';
+import { User2 } from 'lucide';
 import {
   Home,
   Users,
@@ -8,6 +9,8 @@ import {
   ImageIcon,
   Store,
   Calendar,
+  User2Icon,
+  List,
 } from 'lucide-react';
 import { Link } from 'next-view-transitions';
 import { usePathname } from 'next/navigation';
@@ -117,6 +120,38 @@ const links = [
     icon: (
       <Icon
         as={Calendar}
+        _groupHover={{
+          color: 'white',
+          transform: 'translateX(10px)',
+          transition: 'all 0.3s ease',
+        }}
+        color={'black'}
+        boxSize={6}
+      />
+    ),
+  },
+  {
+    href: '/site/members',
+    label: 'Members',
+    icon: (
+      <Icon
+        as={User2Icon}
+        _groupHover={{
+          color: 'white',
+          transform: 'translateX(10px)',
+          transition: 'all 0.3s ease',
+        }}
+        color={'black'}
+        boxSize={6}
+      />
+    ),
+  },
+  {
+    href: '/site/orders',
+    label: 'Orders',
+    icon: (
+      <Icon
+        as={List}
         _groupHover={{
           color: 'white',
           transform: 'translateX(10px)',

@@ -494,3 +494,60 @@ export const deleteProduct = async (id: number) => {
     message: 'success',
   };
 };
+
+export const getOrders = async (page: number = 1) => {
+  const suapabase = createClient();
+  const limit = 20;
+  const offset = page * limit;
+  const { data, error } = await suapabase.from('orders').select().limit(offset);
+  if (error) {
+    throw new Error('Failed to get orders');
+  }
+
+  return data;
+};
+
+export const getOrderCount = async () => {
+  const suapabase = createClient();
+  const { count, error } = await suapabase
+    .from('orders')
+    .select('*', { count: 'exact', head: true });
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return count;
+};
+
+export const getSingleOrder = async (orderId: number) => {
+  const suapabase = createClient();
+  const { data, error } = await suapabase
+    .from('order_items')
+    .select('*, productId(*)')
+    .eq('order_id', orderId);
+
+  if (error) {
+    console.log('dsg', error);
+    throw new Error('Failed to fetch order');
+  }
+
+  return data;
+};
+
+export const updateOrder = async (
+  orderId: number,
+  status: 'pending' | 'completed' | 'canceled',
+) => {
+  const suapabase = createClient();
+  const { error } = await suapabase
+    .from('orders')
+    .update({ status })
+    .eq('id', orderId);
+
+  if (error) {
+    console.log('dsg', error);
+    return { message: 'failed' };
+  }
+  revalidatePath('/site/orders');
+  return { message: 'success' };
+};

@@ -9,6 +9,8 @@ export type ProductType = Database['public']['Tables']['products']['Row'];
 export type PlayersType =
   Database['public']['Tables']['players_statistics']['Row'];
 export type MenType = Database['public']['Tables']['men']['Row'];
+export type OrderType = Database['public']['Tables']['orders']['Row'];
+export type OrderItemType = Database['public']['Tables']['order_items']['Row'];
 
 export type PType = {
   description: string;
@@ -24,6 +26,13 @@ export type PositionEnum = Database['public']['Enums']['ROLE'];
 export type CatType = Database['public']['Enums']['VIDEO_TYPE'];
 export type DUTY = Database['public']['Enums']['DUTY'];
 
+export type ORDER = {
+  created_at: string | null;
+  id: number;
+  order_id: number | null;
+  productId: any;
+  quantity: number;
+};
 export type MatchType = {
   attendance: number;
   away_score: number;

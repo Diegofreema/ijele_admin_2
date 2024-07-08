@@ -108,6 +108,7 @@ export const NewsComponent = ({ count, news }: Props) => {
         news: values.articles,
         title: values.title,
         category: values.category,
+        id: Math.floor(Math.random() * 10),
       });
       if (error) {
         setIsSubmitting(false);

@@ -9,6 +9,75 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      cart: {
+        Row: {
+          id: number;
+          productId: number | null;
+          quantity: number | null;
+          userId: string | null;
+        };
+        Insert: {
+          id?: number;
+          productId?: number | null;
+          quantity?: number | null;
+          userId?: string | null;
+        };
+        Update: {
+          id?: number;
+          productId?: number | null;
+          quantity?: number | null;
+          userId?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'cart_productId_products_id_fk';
+            columns: ['productId'];
+            isOneToOne: false;
+            referencedRelation: 'products';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'cart_userId_users_user_id_fk';
+            columns: ['userId'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['user_id'];
+          },
+        ];
+      };
+      favorite: {
+        Row: {
+          id: number;
+          productId: number | null;
+          userId: string | null;
+        };
+        Insert: {
+          id: number;
+          productId?: number | null;
+          userId?: string | null;
+        };
+        Update: {
+          id?: number;
+          productId?: number | null;
+          userId?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'favorite_productId_products_id_fk';
+            columns: ['productId'];
+            isOneToOne: false;
+            referencedRelation: 'products';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'favorite_userId_users_user_id_fk';
+            columns: ['userId'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['user_id'];
+          },
+        ];
+      };
       images: {
         Row: {
           created_at: string | null;
@@ -264,33 +333,72 @@ export type Database = {
         };
         Relationships: [];
       };
+      order_items: {
+        Row: {
+          created_at: string | null;
+          id: number;
+          order_id: number | null;
+          productId: number | null;
+          quantity: number;
+        };
+        Insert: {
+          created_at?: string | null;
+          id?: number;
+          order_id?: number | null;
+          productId?: number | null;
+          quantity: number;
+        };
+        Update: {
+          created_at?: string | null;
+          id?: number;
+          order_id?: number | null;
+          productId?: number | null;
+          quantity?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'order_items_order_id_orders_id_fk';
+            columns: ['order_id'];
+            isOneToOne: false;
+            referencedRelation: 'orders';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'order_items_productId_products_id_fk';
+            columns: ['productId'];
+            isOneToOne: false;
+            referencedRelation: 'products';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       orders: {
         Row: {
           created_at: string | null;
           customer_id: string;
           id: number;
           order_date: string;
-          status: number;
+          order_id: string;
+          status: Database['public']['Enums']['order_status'] | null;
           total_amount: number;
-          updated_at: string;
         };
         Insert: {
           created_at?: string | null;
           customer_id: string;
           id?: number;
           order_date?: string;
-          status: number;
-          total_amount?: number;
-          updated_at?: string;
+          order_id?: string;
+          status?: Database['public']['Enums']['order_status'] | null;
+          total_amount: number;
         };
         Update: {
           created_at?: string | null;
           customer_id?: string;
           id?: number;
           order_date?: string;
-          status?: number;
+          order_id?: string;
+          status?: Database['public']['Enums']['order_status'] | null;
           total_amount?: number;
-          updated_at?: string;
         };
         Relationships: [
           {
