@@ -6,10 +6,12 @@ import { Title } from 'components/ui/Title';
 import { useState } from 'react';
 import { MemberType } from '../../../../../types';
 import { addNewMember } from '../../../../../actions/data.actions';
+import { useRouter } from 'next/navigation';
 
 export const AddNewMember = ({}): JSX.Element => {
   const [loading, setLoading] = useState(false);
   const toast = useToast();
+  const router = useRouter();
   const onSubmit = async (member: MemberType) => {
     setLoading(true);
     try {
@@ -34,6 +36,7 @@ export const AddNewMember = ({}): JSX.Element => {
           duration: 5000,
           isClosable: true,
         });
+        router.push('/site/members');
       }
     } catch (error) {
       toast({

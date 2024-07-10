@@ -41,6 +41,7 @@ export const Members = ({ members, count }: Props) => {
         <CustomButton
           title="Add member"
           onClick={() => router.push('/site/members/new-member')}
+          cursor={'pointer'}
         />
       </Flex>
       <Flex mt={10} justifyContent={'space-between'} alignItems={'center'}>

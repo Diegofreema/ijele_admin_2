@@ -121,7 +121,6 @@ export const MemberForm = ({
   };
 
   const onSubmit = () => {
-    setReadOnly();
     onSend({
       ...member,
       dateOfBirth: format(member.dateOfBirth, 'dd/MM/yyyy'),
@@ -195,8 +194,10 @@ export const MemberForm = ({
                       to upload
                     </p>
                   ) : (
-                    <p className="text-black text-center">
-                      <span className="font-semibold">Click to upload </span>
+                    <p className="text-black text-center flex justify-center w-[500px] bg-red-500">
+                      <span className="font-semibold text-center inline-block">
+                        Click to upload
+                      </span>{' '}
                       or drag and drop
                     </p>
                   )}
@@ -268,14 +269,25 @@ export const MemberForm = ({
         name="phoneNumber"
         isReadOnly={isReadOnly}
       />
-      <CustomInput
-        label="Salutation"
-        placeholder="Salutation"
-        onChange={handleChange}
-        value={member?.salutation}
-        name="salutation"
-        isReadOnly={isReadOnly}
-      />
+
+      <Stack>
+        <Text textColor={'black'} fontWeight={700}>
+          Salutation
+        </Text>
+        <Select
+          placeholder="Select"
+          value={member?.salutation}
+          onChange={handleChange}
+          name="salutation"
+          maxW={500}
+          isDisabled={isReadOnly}
+          defaultValue={member?.salutation}
+        >
+          <option value={'mr'}>Mr</option>
+          <option value={'mrs'}>Mrs</option>
+          <option value={'miss'}>Miss</option>
+        </Select>
+      </Stack>
       <Stack>
         <Text textColor={'black'} fontWeight={700}>
           Gender

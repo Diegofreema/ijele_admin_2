@@ -641,7 +641,7 @@ export const addNewMember = async (member: MemberType) => {
     if (error) {
       return { message: 'failed' };
     }
-
+    revalidatePath('/site/members');
     return { message: 'success' };
   } catch (error) {
     console.log(error);
