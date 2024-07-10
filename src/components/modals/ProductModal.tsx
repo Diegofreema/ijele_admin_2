@@ -79,9 +79,6 @@ export function ProductModal({
   const allFields = values.description && values.inStock && values.price;
   const [isDragOver, setIsDragOver] = useState(false);
   const folderPath = imgUrl.split('files/')[1];
-  const format = (val: string) => `N` + val;
-  const parse = (val: string) => val.replace(/^\$/, '');
-  console.log(folderPath);
 
   const handleClose = async () => {
     setImage('');

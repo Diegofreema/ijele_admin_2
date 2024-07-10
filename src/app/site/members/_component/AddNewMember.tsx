@@ -1,24 +1,19 @@
 'use client';
+
 import { Box, Flex, useToast } from '@chakra-ui/react';
-import { MemberType } from '../../../../../types';
-import { Title } from 'components/ui/Title';
-import { CustomButton } from 'components/ui/CustomButton';
 import { MemberForm } from 'components/memberForm';
+import { Title } from 'components/ui/Title';
 import { useState } from 'react';
-import { updateMember } from '../../../../../actions/data.actions';
+import { MemberType } from '../../../../../types';
+import { addNewMember } from '../../../../../actions/data.actions';
 
-interface Props {
-  user: MemberType;
-}
-
-export const SingleMember = ({ user }: Props) => {
-  const [isReadOnly, setIsReadOnly] = useState(true);
-  const [submitting, setSubmitting] = useState(false);
+export const AddNewMember = ({}): JSX.Element => {
+  const [loading, setLoading] = useState(false);
   const toast = useToast();
   const onSubmit = async (member: MemberType) => {
-    setSubmitting(true);
+    setLoading(true);
     try {
-      const { message } = await updateMember(member);
+      const { message } = await addNewMember(member);
       if (message === 'failed') {
         toast({
           title: 'Error',
@@ -39,7 +34,6 @@ export const SingleMember = ({ user }: Props) => {
           duration: 5000,
           isClosable: true,
         });
-        setIsReadOnly(true);
       }
     } catch (error) {
       toast({
@@ -51,31 +45,20 @@ export const SingleMember = ({ user }: Props) => {
         isClosable: true,
       });
     } finally {
-      setSubmitting(false);
+      setLoading(false);
     }
-  };
-  const setReadOnly = () => {
-    setIsReadOnly(true);
   };
   return (
     <Box>
       <Flex justifyContent={'space-between'} alignItems={'center'}>
-        <Title title={user?.first_name + ' ' + user?.last_name} />
-        <CustomButton
-          onClick={() => setIsReadOnly(false)}
-          title="Edit Member"
-        />
+        <Title title="Add new member" />
       </Flex>
-
-      <Box>
-        <MemberForm
-          user={user}
-          setReadOnly={setReadOnly}
-          isReadOnly={isReadOnly}
-          onSubmit={onSubmit}
-          loading={submitting}
-        />
-      </Box>
+      <MemberForm
+        loading={loading}
+        onSubmit={onSubmit}
+        isReadOnly={false}
+        btn="Add"
+      />
     </Box>
   );
 };

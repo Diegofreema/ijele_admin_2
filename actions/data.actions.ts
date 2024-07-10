@@ -2,7 +2,8 @@
 
 import { createClient } from '../util/supabase/server';
 import { revalidatePath } from 'next/cache';
-import { MatchType, PType, TypeMen } from '../types';
+import { MatchType, MemberType, PType, TypeMen } from '../types';
+import { generateRandomString } from 'utils/helper';
 
 export const getTotalPlayers = async () => {
   const suapabase = createClient();
@@ -68,6 +69,18 @@ export const getTotalVideos = async () => {
   return {
     numberOfVideos: count,
   };
+};
+export const getTotalMembers = async () => {
+  const suapabase = createClient();
+  const { count, error } = await suapabase
+    .from('users')
+    .select('*', { count: 'exact', head: true })
+    .neq('userId', null);
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return count;
 };
 export const getTotalMatches = async () => {
   const suapabase = createClient();
@@ -550,4 +563,107 @@ export const updateOrder = async (
   }
   revalidatePath('/site/orders');
   return { message: 'success' };
+};
+
+export const getMembers = async (page: number = 1) => {
+  const suapabase = createClient();
+  const limit = 20;
+  const offset = page * limit;
+  const { data, error } = await suapabase
+    .from('users')
+    .select('*')
+    .neq('userId', null)
+    .limit(offset);
+
+  if (error) {
+    console.log('sf', error);
+
+    throw new Error('Failed to fetch members');
+  }
+
+  return data;
+};
+
+export const getSearch = async () => {
+  const suapabase = createClient();
+
+  const { data, error } = await suapabase.from('users').select('*');
+
+  if (error) {
+    console.log('sf', error);
+
+    throw new Error('Failed to fetch members');
+  }
+
+  return { data };
+};
+
+export const getSingleUser = async (userId: string) => {
+  const suapabase = createClient();
+  const { data, error } = await suapabase
+    .from('users')
+    .select('*')
+    .eq('user_id', userId)
+    .single();
+  if (error) {
+    throw new Error('Failed to get profile');
+  }
+  return data;
+};
+
+export const addNewMember = async (member: MemberType) => {
+  const supabase = createClient();
+  try {
+    let userId = '';
+    let isUsed = false;
+
+    do {
+      const id = generateRandomString();
+      const { data: dt, error } = await supabase
+        .from('users')
+        .select()
+        .eq('userId', id);
+
+      if (error) {
+        console.log('Error:', error);
+        return { message: 'failed' };
+      }
+      if (dt?.length > 0) {
+        isUsed = true;
+      } else if (dt?.length === 0) {
+        isUsed = false;
+        userId = id;
+      }
+    } while (isUsed);
+    const { error } = await supabase
+      .from('users')
+      .insert({ ...member, userId, verified: true });
+    if (error) {
+      return { message: 'failed' };
+    }
+
+    return { message: 'success' };
+  } catch (error) {
+    console.log(error);
+    return { message: 'failed' };
+  }
+};
+export const updateMember = async (member: MemberType) => {
+  const supabase = createClient();
+  try {
+    const { error } = await supabase
+      .from('users')
+      .update(member)
+      .eq('userId', member.userId);
+    if (error) {
+      return { message: 'failed' };
+    }
+    revalidatePath('/site/members');
+    revalidatePath(`/site/members/${member.userId}`);
+
+    return { message: 'success' };
+  } catch (error) {
+    console.log(error);
+    return { message: 'failed' };
+  }
 };

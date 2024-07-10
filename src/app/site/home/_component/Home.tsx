@@ -27,6 +27,7 @@ interface Props {
     numberOfVideos: number;
     productsCount: number;
     matches: MatchesType[];
+    memberCount: number;
   };
 }
 
@@ -75,6 +76,13 @@ export const Home = ({ data }: Props) => {
           title="Total Products"
           subTitle="The total number of products available."
           count={data.productsCount}
+        />
+      </Suspense>
+      <Suspense fallback={<ImageSkeleton />}>
+        <HomeCard
+          title="Total Members"
+          subTitle="The total number of registers members."
+          count={data.memberCount}
         />
       </Suspense>
     </SimpleGrid>
@@ -162,7 +170,7 @@ export const MatchItem = ({ match }: { match: MatchesType }) => {
             </Flex>
             <Text>vs</Text>
             <Flex alignItems={'center'} gap={2}>
-              {notHome && <Avatar src={match?.away_team_img} />}
+              {notHome && <Avatar src={match?.away_team_image} />}
               <Text fontSize={13} fontWeight={'bold'} textColor="black">
                 {match?.away_team}
               </Text>
@@ -173,7 +181,7 @@ export const MatchItem = ({ match }: { match: MatchesType }) => {
           <CardFooter>
             <Box width="100%">
               <Title small title="Result" />
-              <Text fontWeight={'bold'}> {match?.match_result}</Text>
+              <Text fontWeight={'bold'}> {match?.RESULT}</Text>
 
               <Flex>
                 <Text fontWeight={'bold'}>{match?.home_score}</Text>:{' '}

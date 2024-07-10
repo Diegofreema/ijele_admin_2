@@ -3,6 +3,7 @@ import { createClient } from '../../../../util/supabase/server';
 import {
   getMatches,
   getTotalImages,
+  getTotalMembers,
   getTotalNews,
   getTotalPlayers,
   getTotalProducts,
@@ -19,15 +20,18 @@ const page = async ({}) => {
   const videosData = getTotalVideos();
   const productData = getTotalProducts();
   const upcomingMatches = getMatches();
+  const memberCount = getTotalMembers();
 
-  const [news, players, images, videos, matches, products] = await Promise.all([
-    newsData,
-    playersData,
-    imagesData,
-    videosData,
-    upcomingMatches,
-    productData,
-  ]);
+  const [news, players, images, videos, matches, products, member] =
+    await Promise.all([
+      newsData,
+      playersData,
+      imagesData,
+      videosData,
+      upcomingMatches,
+      productData,
+      memberCount,
+    ]);
 
   const data = {
     numberOfPlayers: players?.numberOfPlayers,
@@ -36,6 +40,7 @@ const page = async ({}) => {
     numberOfVideos: videos?.numberOfVideos,
     matches: matches?.matches,
     productsCount: products,
+    memberCount: member,
   };
   return <Home data={data} />;
 };
