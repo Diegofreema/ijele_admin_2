@@ -121,9 +121,10 @@ export const VideoComponent = ({ videos, count }: Props) => {
     setIsSubmitting(true);
     try {
       const { error } = await supabase.from('videos').insert({
-        video_url: videoUrl || link,
         caption: caption,
-        type: cat,
+        video_url: videoUrl || link,
+        VIDEO_TYPE: cat,
+        id: Math.floor(Math.random() * 10),
       });
       if (error) {
         setIsSubmitting(false);
