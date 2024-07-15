@@ -38,6 +38,7 @@ export const SingleProduct = ({ singleProduct }: Props) => {
     price: 0,
     inStock: 0,
     description: '',
+    category: '',
   });
   useEffect(() => {
     setValues({
@@ -45,6 +46,7 @@ export const SingleProduct = ({ singleProduct }: Props) => {
       price: singleProduct?.price,
       inStock: singleProduct?.number_in_stock,
       description: singleProduct?.description,
+      category: singleProduct?.category,
     });
     setImage(singleProduct?.image_url);
   }, [singleProduct]);
@@ -112,6 +114,7 @@ export const SingleProduct = ({ singleProduct }: Props) => {
         product_name: values.productName,
         id: singleProduct?.id,
         price: values?.price,
+        category: values?.category,
       });
       if (error) {
         setIsSubmitting(false);
