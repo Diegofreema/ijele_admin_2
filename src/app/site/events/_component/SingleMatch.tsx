@@ -111,7 +111,7 @@ export const SingleMatch = ({ match }: { match: MatchesType }): JSX.Element => {
               VS
             </Text>
             <Flex alignItems={'center'} gap={2}>
-              <Avatar size={'xl'} src={match?.away_team_img} />
+              <Avatar size={'xl'} src={match?.away_team_image} />
               <Text fontWeight={'bold'} fontSize={15}>
                 {match?.away_team}
               </Text>
