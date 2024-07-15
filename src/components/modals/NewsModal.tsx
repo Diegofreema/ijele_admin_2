@@ -17,7 +17,6 @@ import {
   Input,
   Textarea,
 } from '@chakra-ui/react';
-import { useOpenVideo } from '../../../hooks/useOpenVideo';
 import Dropzone, { Accept, FileRejection } from 'react-dropzone';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { ImageIcon, MousePointerSquareDashed, X } from 'lucide-react';

@@ -1,8 +1,6 @@
-import { NextPage } from 'next';
 import { getSingleOrder } from '../../../../../actions/data.actions';
 import { notFound } from 'next/navigation';
 import { Order } from '../_component/Order';
-import { ORDER } from '../../../../../types';
 
 interface Props {
   params: { singleOrder: string };

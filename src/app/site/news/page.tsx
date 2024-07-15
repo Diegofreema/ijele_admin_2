@@ -1,8 +1,5 @@
-import { NextPage } from 'next';
 import { getNews, getTotalNews } from '../../../../actions/data.actions';
-import { Suspense } from 'react';
 import { NewsComponent } from './_component/NewComponent';
-import { ImageSkeleton } from '../images/_component/ImagComponent';
 
 interface Props {}
 

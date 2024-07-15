@@ -1,8 +1,6 @@
-import { NextPage } from 'next';
 import { SingleArticles } from '../_component/SingleArticles';
 import { getSingleNews } from '../../../../../actions/data.actions';
 import { notFound } from 'next/navigation';
-import { NewsType } from '../../../../../types';
 
 interface Props {}
 
