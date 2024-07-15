@@ -98,7 +98,7 @@ export const SinglePlayer = ({ player }: Props) => {
           </Flex>
           <Flex justifyContent={'space-between'}>
             <Text>State of origin</Text>
-            <Text>{player?.state_of_orgin}</Text>
+            <Text>{player?.state_of_origin}</Text>
           </Flex>
           <Flex justifyContent={'space-between'}>
             <Text>Nationality</Text>
@@ -111,8 +111,7 @@ export const SinglePlayer = ({ player }: Props) => {
           <Flex justifyContent={'space-between'}>
             <Text>Position(s)</Text>
             <Box>
-              <Text>{player?.position}</Text>
-              <Text>{player?.second_position}</Text>
+              <Text>{player?.ROLE}</Text>
             </Box>
           </Flex>
           <Flex justifyContent={'space-between'}>
