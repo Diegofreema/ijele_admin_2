@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { CustomButton } from 'components/ui/CustomButton';
 import { Title } from 'components/ui/Title';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Link } from 'next-view-transitions';
 import { ImageType } from '../../../../../types';
 import { UploadModal } from 'components/modals/ImageModal';
@@ -103,6 +103,7 @@ export const ImageComponent = ({ images, count }: Props) => {
     try {
       const { error } = await supabase.from('images').insert({
         image_url: image,
+        id: Math.floor(Math.random() * 100),
       });
       if (error) {
         setIsSubmitting(false);
