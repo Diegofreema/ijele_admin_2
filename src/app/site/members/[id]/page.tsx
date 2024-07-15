@@ -1,4 +1,3 @@
-import { NextPage } from 'next';
 import { SingleMember } from '../_component/SingleMember';
 import { notFound } from 'next/navigation';
 import { getSingleUser } from '../../../../../actions/data.actions';
