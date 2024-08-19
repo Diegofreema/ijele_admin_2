@@ -181,8 +181,6 @@ export const createMatch = async (matches: MatchType) => {
     away_team: matches.away_team,
     venue: matches.venue,
     ref_name: matches.ref_name,
-    match_result: matches.match_result,
-    away_team_img: matches.away_team_img,
     home_score: matches.home_score,
     home_team: matches.home_team,
     home_team_img: matches.home_team_img,

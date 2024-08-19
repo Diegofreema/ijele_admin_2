@@ -1,7 +1,7 @@
 'use client';
 import {
   Box,
-  Card,
+
   Flex,
   SimpleGrid,
   useDisclosure,
@@ -24,7 +24,7 @@ interface Props {
 
 export const Matches = ({ count, matches }: Props) => {
   const { onOpen, isOpen, onClose } = useDisclosure();
-  const [homeImage, setHomeImage] = useState('');
+
   const [submitting, setSubmitting] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();

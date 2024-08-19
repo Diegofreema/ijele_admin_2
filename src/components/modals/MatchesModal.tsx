@@ -20,6 +20,7 @@ import {
   Select,
   useToast,
   Spinner,
+  Button,
 } from '@chakra-ui/react';
 import { ChangeEventHandler, useEffect, useRef, useState } from 'react';
 import { CustomButton } from 'components/ui/CustomButton';
@@ -36,7 +37,6 @@ const data = [
   'Live',
 ];
 
-const supabase = createClient();
 type Props = {
   isOpen: boolean;
   onClose: () => void;
@@ -55,7 +55,7 @@ export function MatchModal({
 }: Props) {
   const supabase = createClient();
   const [mounted, setMounted] = useState(false);
-  const [homeImage, setHomeImage] = useState('');
+
   const [awayImage, setAwayImage] = useState('');
   const [uploadingHome, setUploadingHome] = useState(false);
   const [uploadingAway, setUploadingAway] = useState(false);
@@ -114,7 +114,7 @@ export function MatchModal({
     if (!file) return;
     setUploadingHome(true);
     try {
-      const filePath = `/matches/${file?.name}`;
+      const filePath = `/matches/${file?.name}/${Math.random() * 1000}`;
       const { data, error } = await supabase.storage
         .from('files')
         .upload(filePath, file);
@@ -146,11 +146,6 @@ export function MatchModal({
     } finally {
       setUploadingHome(false);
     }
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      setHomeImage(reader.result as string);
-    };
   };
   const onHandleAwayChange: ChangeEventHandler<HTMLInputElement> = async (
     e,
@@ -159,7 +154,7 @@ export function MatchModal({
     if (!file) return;
     setUploadingAway(true);
     try {
-      const filePath = `/matches/${file?.name}`;
+      const filePath = `/matches/${file?.name}/${Math.random() * 1000}`;
       const { data, error } = await supabase.storage
         .from('files')
         .upload(filePath, file);
@@ -191,11 +186,6 @@ export function MatchModal({
     } finally {
       setUploadingAway(false);
     }
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      setAwayImage(reader.result as string);
-    };
   };
 
   const handleSubmit = () => {
@@ -211,6 +201,11 @@ export function MatchModal({
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const clearImage = (type: 'H' | 'A') => {
+    if (type === 'H') setValues({ ...values, home_team_img: '' });
+    if (type === 'A') setValues({ ...values, away_team_img: '' });
+  };
   const isValid = Object.values(values).every((val) => val !== '');
   if (!mounted) return null;
   return (
@@ -291,6 +286,9 @@ export function MatchModal({
               gap={3}
             >
               <Title small title="Home" />
+              {values?.home_team_img && (
+                <Button onClick={() => clearImage('H')}>Clear</Button>
+              )}
               <Flex alignItems={'center'} gap={2}>
                 {!values.home_team_img && !uploadingHome && (
                   <Box
@@ -303,11 +301,13 @@ export function MatchModal({
                   />
                 )}{' '}
                 {values?.home_team_img && !uploadingHome && (
-                  <Avatar
-                    src={values.home_team_img}
-                    size={'md'}
-                    onClick={onOpenHomeImagePicker}
-                  />
+                  <div className="flex flex-col">
+                    <Avatar
+                      src={values.home_team_img}
+                      size={'md'}
+                      onClick={onOpenHomeImagePicker}
+                    />
+                  </div>
                 )}
                 {uploadingHome && <Spinner color="green" />}
                 <Input
@@ -352,6 +352,9 @@ export function MatchModal({
               gap={3}
             >
               <Title small title="Away" />
+              {values?.away_team_img && (
+                <Button onClick={() => clearImage('A')}>Clear</Button>
+              )}
               <Flex alignItems={'center'} gap={2}>
                 {!values.away_team_img && !uploadingAway && (
                   <Box
@@ -364,11 +367,13 @@ export function MatchModal({
                   />
                 )}{' '}
                 {values.away_team_img && !uploadingAway && (
-                  <Avatar
-                    src={values.away_team_img}
-                    size={'md'}
-                    onClick={onOpenHomeImagePicker}
-                  />
+                  <div className="flex flex-col">
+                    <Avatar
+                      src={values.away_team_img}
+                      size={'md'}
+                      onClick={onOpenHomeImagePicker}
+                    />
+                  </div>
                 )}
                 {uploadingAway && <Spinner color="green" />}
                 <Input
