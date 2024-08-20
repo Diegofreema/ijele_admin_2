@@ -74,6 +74,8 @@ export function MatchModal({
     match_result: 'upcoming',
     ref_name: 'Not yet known',
     league: '',
+    ticket_available: 0,
+    ticket_price: 0,
   });
 
   useEffect(() => {
@@ -92,6 +94,8 @@ export function MatchModal({
         ref_name: matchValues.ref_name,
         venue: matchValues.venue,
         league: matchValues?.league,
+        ticket_available: matchValues?.ticket_available,
+        ticket_price: matchValues?.ticket_price,
       });
     }
   }, [matchValues]);
@@ -221,61 +225,108 @@ export function MatchModal({
           justifyContent={'center'}
         >
           <Flex flexDirection={'column'} gap={2} mb={5}>
-            <Select
-              placeholder="Select Outcome of the match"
-              width={'100%'}
-              value={values.match_result}
-              onChange={(e) =>
-                setValues({
-                  ...values,
-                  match_result: e.target.value as MatchResult,
-                })
-              }
-            >
-              {data.map((val) => (
-                <option key={val} value={val.toLowerCase()}>
-                  {val}
-                </option>
-              ))}
-            </Select>
-            <Input
-              width={'100%'}
-              placeholder="Venue"
-              value={values.venue}
-              onChange={(e) => setValues({ ...values, venue: e.target.value })}
-            />
-            <Input
-              width={'100%'}
-              placeholder="Referee name"
-              value={values.ref_name}
-              onChange={(e) =>
-                setValues({ ...values, ref_name: e.target.value })
-              }
-            />
-            <Input
-              width={'100%'}
-              placeholder="League"
-              value={values.league}
-              onChange={(e) => setValues({ ...values, league: e.target.value })}
-            />
-            <Input
-              width={'100%'}
-              placeholder="Date of match"
-              value={values.date_of_match}
-              type="date"
-              onChange={(e) =>
-                setValues({ ...values, date_of_match: e.target.value })
-              }
-            />
-            <Input
-              width={'100%'}
-              placeholder="Kick off"
-              type="time"
-              value={values.kick_off}
-              onChange={(e) =>
-                setValues({ ...values, kick_off: e.target.value })
-              }
-            />
+            <>
+              <label htmlFor="">Select outcome of the match</label>
+              <Select
+                placeholder="Select Outcome of the match"
+                width={'100%'}
+                value={values.match_result}
+                onChange={(e) =>
+                  setValues({
+                    ...values,
+                    match_result: e.target.value as MatchResult,
+                  })
+                }
+              >
+                {data.map((val) => (
+                  <option key={val} value={val.toLowerCase()}>
+                    {val}
+                  </option>
+                ))}
+              </Select>
+            </>
+            <>
+              <label>Venue</label>
+              <Input
+                width={'100%'}
+                placeholder="Venue"
+                value={values.venue}
+                onChange={(e) =>
+                  setValues({ ...values, venue: e.target.value })
+                }
+              />
+            </>
+            <>
+              <label>Referee name</label>
+              <Input
+                width={'100%'}
+                placeholder="Referee name"
+                value={values.ref_name}
+                onChange={(e) =>
+                  setValues({ ...values, ref_name: e.target.value })
+                }
+              />
+            </>
+            <>
+              <label>Tournament</label>
+              <Input
+                width={'100%'}
+                placeholder="League"
+                value={values.league}
+                onChange={(e) =>
+                  setValues({ ...values, league: e.target.value })
+                }
+              />
+            </>
+            <>
+              <label>Date of match</label>
+              <Input
+                width={'100%'}
+                placeholder="Date of match"
+                value={values.date_of_match}
+                type="date"
+                onChange={(e) =>
+                  setValues({ ...values, date_of_match: e.target.value })
+                }
+              />
+            </>
+            <>
+              <label>Kickoff</label>
+              <Input
+                width={'100%'}
+                placeholder="Kick off"
+                type="time"
+                value={values.kick_off}
+                onChange={(e) =>
+                  setValues({ ...values, kick_off: e.target.value })
+                }
+              />
+            </>
+            <>
+              <label>Ticket price</label>
+              <Input
+                width={'100%'}
+                placeholder="Ticket price in naira"
+                value={values.ticket_price}
+                onChange={(e) =>
+                  setValues({ ...values, ticket_price: Number(e.target.value) })
+                }
+              />
+            </>
+            <>
+              <label>Ticket in stock</label>
+              <Input
+                width={'100%'}
+                placeholder="Ticket in stock"
+                value={values.ticket_available}
+                onChange={(e) =>
+                  setValues({
+                    ...values,
+                    ticket_available: Number(e.target.value),
+                  })
+                }
+              />
+            </>
           </Flex>
 
           <Flex gap={4} width={'100%'}>

@@ -49,6 +49,8 @@ export type MatchType = {
   ref_name: string;
   venue: string;
   league: string;
+  ticket_price: number;
+  ticket_available: number;
 };
 
 export type TypeMen = {

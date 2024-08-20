@@ -178,6 +178,8 @@ export type Database = {
           league: string;
           ref_name: string | null;
           RESULT: Database['public']['Enums']['RESULT'] | null;
+          ticket_available: number | null;
+          ticket_price: number | null;
           venue: string;
         };
         Insert: {
@@ -190,11 +192,13 @@ export type Database = {
           home_score: number;
           home_team: string;
           home_team_img: string;
-          id: number;
+          id?: number;
           kick_off: string;
           league: string;
           ref_name?: string | null;
           RESULT?: Database['public']['Enums']['RESULT'] | null;
+          ticket_available?: number | null;
+          ticket_price?: number | null;
           venue: string;
         };
         Update: {
@@ -212,6 +216,8 @@ export type Database = {
           league?: string;
           ref_name?: string | null;
           RESULT?: Database['public']['Enums']['RESULT'] | null;
+          ticket_available?: number | null;
+          ticket_price?: number | null;
           venue?: string;
         };
         Relationships: [];

@@ -1,7 +1,6 @@
 'use client';
 import {
   Box,
-
   Flex,
   SimpleGrid,
   useDisclosure,
@@ -23,6 +22,7 @@ interface Props {
 }
 
 export const Matches = ({ count, matches }: Props) => {
+  console.log('🚀 ~ Matches ~ matches:', matches);
   const { onOpen, isOpen, onClose } = useDisclosure();
 
   const [submitting, setSubmitting] = useState(false);

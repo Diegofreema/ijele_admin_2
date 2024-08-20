@@ -136,7 +136,7 @@ export const MatchItem = ({ match }: { match: MatchesType }) => {
     ? '/site/home'
     : `/site/events/${match?.id}`;
   return (
-    <Link href={pathToGo}>
+    <Link href={pathToGo} className="cursor-pointer">
       <Card flexDir={'column'}>
         <CardBody>
           <Flex alignItems={'center'} justifyContent="space-between">
@@ -178,7 +178,11 @@ export const MatchItem = ({ match }: { match: MatchesType }) => {
           </Flex>
         </CardBody>
         {notHome && (
-          <CardFooter>
+          <CardFooter
+            display={'flex'}
+            justifyItems={'space-between'}
+            alignItems={'center'}
+          >
             <Box width="100%">
               <Title small title="Result" />
               <Text fontWeight={'bold'}> {match?.RESULT}</Text>
@@ -187,6 +191,14 @@ export const MatchItem = ({ match }: { match: MatchesType }) => {
                 <Text fontWeight={'bold'}>{match?.home_score}</Text>:{' '}
                 <Text fontWeight={'bold'}>{match?.away_score}</Text>
               </Flex>
+            </Box>
+            <Box>
+              <Text fontWeight={'bold'}>Ticket price</Text>
+              <Text fontWeight={'bold'}>₦{match?.ticket_price}</Text>
+            </Box>
+            <Box>
+              <Text fontWeight={'bold'}>Ticket available</Text>
+              <Text fontWeight={'bold'}>{match?.ticket_available}</Text>
             </Box>
           </CardFooter>
         )}
