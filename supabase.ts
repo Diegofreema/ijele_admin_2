@@ -496,6 +496,47 @@ export type Database = {
         };
         Relationships: [];
       };
+      ticket: {
+        Row: {
+          created_at: string;
+          email: string;
+          id: number;
+          match_id: number;
+          name: string;
+          phone: string | null;
+          redeemed: boolean | null;
+          ticketId: string | null;
+        };
+        Insert: {
+          created_at?: string;
+          email?: string;
+          id?: number;
+          match_id: number;
+          name?: string;
+          phone?: string | null;
+          redeemed?: boolean | null;
+          ticketId?: string | null;
+        };
+        Update: {
+          created_at?: string;
+          email?: string;
+          id?: number;
+          match_id?: number;
+          name?: string;
+          phone?: string | null;
+          redeemed?: boolean | null;
+          ticketId?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'ticket_match_id_fkey';
+            columns: ['match_id'];
+            isOneToOne: false;
+            referencedRelation: 'matches';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       users: {
         Row: {
           created_at: string | null;

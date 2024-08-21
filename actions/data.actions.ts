@@ -2,7 +2,7 @@
 
 import { createClient } from '../util/supabase/server';
 import { revalidatePath } from 'next/cache';
-import { MatchType, MemberType, PType, TypeMen } from '../types';
+import { MatchType, MemberType, PType, TicketType, TypeMen } from '../types';
 import { generateRandomString } from 'utils/helper';
 
 export const getTotalPlayers = async () => {
@@ -670,4 +670,54 @@ export const updateMember = async (member: MemberType) => {
     console.log(error);
     return { message: 'failed' };
   }
+};
+
+export const getTicket = async (id: number): Promise<TicketType[]> => {
+  const supabase = createClient();
+
+  const { data, error } = await supabase
+    .from('ticket')
+    .select()
+    .eq('match_id', id);
+  if (error) {
+    throw new Error('Failed to load tickets');
+  }
+
+  return data;
+};
+
+export const getPaginatedTickets = async (
+  page: number = 1,
+  id: number,
+): Promise<TicketType[]> => {
+  const suapabase = createClient();
+  const limit = 20;
+  const offset = page * limit;
+  const { data, error } = await suapabase
+    .from('ticket')
+    .select('*')
+    .eq('match_id', id)
+    .limit(offset);
+
+  if (error) {
+    console.log('sf', error);
+
+    throw new Error('Failed to fetch tickets');
+  }
+
+  return data;
+};
+
+export const updateTicketStatus = async (id: number, matchId: string) => {
+  const supabase = createClient();
+  const { error } = await supabase
+    .from('ticket')
+    .update({ redeemed: true })
+    .eq('id', id);
+  if (error) {
+    console.log(error);
+    return { message: 'failed' };
+  }
+  // revalidatePath(`/site/events/tickets?id=${matchId}`);
+  return { message: 'success' };
 };

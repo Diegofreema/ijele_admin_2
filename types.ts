@@ -12,6 +12,7 @@ export type MenType = Database['public']['Tables']['men']['Row'];
 export type OrderType = Database['public']['Tables']['orders']['Row'];
 export type OrderItemType = Database['public']['Tables']['order_items']['Row'];
 export type MemberType = Database['public']['Tables']['users']['Row'];
+export type TicketType = Database['public']['Tables']['ticket']['Row'];
 
 export type PType = {
   description: string;

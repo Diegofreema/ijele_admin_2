@@ -32,8 +32,6 @@ interface Props {
 }
 
 export const Home = ({ data }: Props) => {
-  console.log(data);
-
   return (
     <SimpleGrid columns={{ base: 1, md: 3 }} gap={5}>
       <Suspense fallback={<ImageSkeleton />}>
@@ -137,7 +135,7 @@ export const MatchItem = ({ match }: { match: MatchesType }) => {
     : `/site/events/${match?.id}`;
   return (
     <Link href={pathToGo} className="cursor-pointer">
-      <Card flexDir={'column'}>
+      <Card flexDir={'column'} width={'fit-content'}>
         <CardBody>
           <Flex alignItems={'center'} justifyContent="space-between">
             {notHome && (

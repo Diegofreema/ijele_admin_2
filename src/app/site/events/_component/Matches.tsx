@@ -15,6 +15,7 @@ import { Link } from 'next-view-transitions';
 import { MatchModal } from 'components/modals/MatchesModal';
 import { createMatch } from '../../../../../actions/data.actions';
 import { MatchItem } from 'app/site/home/_component/Home';
+import { createClient } from '../../../../../util/supabase/client';
 
 interface Props {
   count: number;
@@ -22,15 +23,34 @@ interface Props {
 }
 
 export const Matches = ({ count, matches }: Props) => {
-  console.log('🚀 ~ Matches ~ matches:', matches);
   const { onOpen, isOpen, onClose } = useDisclosure();
-
+  const supabase = createClient();
   const [submitting, setSubmitting] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
   const currentPage = Number(searchParams.get('page')) || 1;
   const isNextPage = count > 10 * currentPage;
   const toast = useToast();
+  useEffect(() => {
+    const channel = supabase
+      .channel('matches-change')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'matches',
+        },
+        () => {
+          router.refresh();
+        },
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [supabase, router]);
   useEffect(() => {
     if (count <= 10) {
       router.push('/site/events');

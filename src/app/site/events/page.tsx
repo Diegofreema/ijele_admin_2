@@ -10,7 +10,6 @@ const page = async ({ searchParams }: { searchParams?: { page?: string } }) => {
   const matchesCount = getTotalMatches();
   const matchesData = getAllMatches(currentPage);
   const [count, matches] = await Promise.all([matchesCount, matchesData]);
-  console.log(matches);
 
   return <Matches count={count} matches={matches} />;
 };

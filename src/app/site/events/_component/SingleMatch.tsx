@@ -9,15 +9,25 @@ import {
 } from '@chakra-ui/react';
 import { CustomButton } from 'components/ui/CustomButton';
 import { Title } from 'components/ui/Title';
-import { MatchType, MatchesType } from '../../../../../types';
+import { MatchType, MatchesType, TicketType } from '../../../../../types';
 import { MatchModal } from 'components/modals/MatchesModal';
 import { useState } from 'react';
 import { format } from 'date-fns';
 import { editMatch } from '../../../../../actions/data.actions';
+import { Link } from 'next-view-transitions';
 
-export const SingleMatch = ({ match }: { match: MatchesType }): JSX.Element => {
+export const SingleMatch = ({
+  match,
+  tickets,
+}: {
+  match: MatchesType;
+  tickets: TicketType[];
+}): JSX.Element => {
   const { onOpen, isOpen, onClose } = useDisclosure();
   const [submitting, setSubmitting] = useState(false);
+
+  console.log(tickets);
+
   const toast = useToast();
   const onSubmit = async (values: MatchType) => {
     setSubmitting(true);
@@ -71,68 +81,80 @@ export const SingleMatch = ({ match }: { match: MatchesType }): JSX.Element => {
           <CustomButton title="Edit fixture" onClick={onOpen} />
         </Flex>
 
-        <Box mt={{ base: 5, md: 10 }} display="flex" flexDir={'column'} gap={5}>
-          <Text
-            fontSize={{ base: 14, md: 16 }}
-            fontWeight={'bold'}
-            textAlign={'center'}
-          >
-            Venue: {match?.venue}
-          </Text>
-          <Text
-            fontSize={{ base: 14, md: 16 }}
-            fontWeight={'bold'}
-            textAlign={'center'}
-          >
-            Referee: {match?.ref_name}
-          </Text>
-          <Text
-            fontSize={{ base: 14, md: 16 }}
-            fontWeight={'bold'}
-            textAlign={'center'}
-          >
-            Date: {format(match?.date_of_match, 'dd/MM/yyyy')}
-          </Text>
-          <Text
-            fontSize={{ base: 14, md: 16 }}
-            fontWeight={'bold'}
-            textAlign={'center'}
-          >
-            Kickoff: {match?.kick_off}
-          </Text>
-          <Flex alignItems={'center'} justifyContent={'center'} gap={5}>
-            <Flex alignItems={'center'} gap={2}>
-              <Avatar size={'xl'} src={match?.home_team_img} />
-              <Text fontWeight={'bold'} fontSize={15}>
-                {match?.home_team}
+        <Flex
+          mt={{ base: 5, md: 10 }}
+          justifyContent={'center'}
+          alignItems={'center'}
+          gap={20}
+          width={'100%'}
+          minHeight={400}
+        >
+          <Box>
+            <Text fontSize={{ base: 14, md: 16 }} fontWeight={'bold'}>
+              Venue: {match?.venue}
+            </Text>
+            <Text fontSize={{ base: 14, md: 16 }} fontWeight={'bold'}>
+              Referee: {match?.ref_name}
+            </Text>
+            <Text fontSize={{ base: 14, md: 16 }} fontWeight={'bold'}>
+              Date: {format(match?.date_of_match, 'dd/MM/yyyy')}
+            </Text>
+            <Text fontSize={{ base: 14, md: 16 }} fontWeight={'bold'}>
+              Kickoff: {match?.kick_off}
+            </Text>
+          </Box>
+          <Box>
+            <Flex alignItems={'center'} justifyContent={'center'} gap={5}>
+              <Flex alignItems={'center'} gap={2}>
+                <Avatar size={'xl'} src={match?.home_team_img} />
+                <Text fontWeight={'bold'} fontSize={15}>
+                  {match?.home_team}
+                </Text>
+              </Flex>
+              <Text fontSize={20} fontWeight={'bold'}>
+                VS
+              </Text>
+              <Flex alignItems={'center'} justifyContent={'center'} gap={2}>
+                <Avatar size={'xl'} src={match?.away_team_image} />
+                <Text fontWeight={'bold'} fontSize={15}>
+                  {match?.away_team}
+                </Text>
+              </Flex>
+            </Flex>
+            <Flex
+              alignItems={'center'}
+              color="black"
+              mt={2}
+              gap={2}
+              justifyContent={'center'}
+            >
+              <Text fontWeight={'bold'} fontSize={20}>
+                {match?.home_score}
+              </Text>
+              :
+              <Text fontWeight={'bold'} fontSize={20}>
+                {match?.away_score}
               </Text>
             </Flex>
-            <Text fontSize={20} fontWeight={'bold'}>
-              VS
-            </Text>
-            <Flex alignItems={'center'} gap={2}>
-              <Avatar size={'xl'} src={match?.away_team_image} />
-              <Text fontWeight={'bold'} fontSize={15}>
-                {match?.away_team}
+          </Box>
+        </Flex>
+        <Flex gap={5} alignItems={'center'} justifyContent={'center'}>
+          <Text style={{ fontSize: 15, fontWeight: 'bold' }}>
+            Number of tickets sold for this match
+          </Text>
+          <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
+            {tickets?.length}
+          </Text>
+        </Flex>
+        {!!tickets.length && (
+          <Flex gap={5} alignItems={'center'} justifyContent={'center'}>
+            <Link href={`/site/events/tickets?id=${match.id}`}>
+              <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'blue' }}>
+                View
               </Text>
-            </Flex>
+            </Link>
           </Flex>
-          <Flex
-            alignItems={'center'}
-            color="black"
-            mt={2}
-            gap={2}
-            justifyContent={'center'}
-          >
-            <Text fontWeight={'bold'} fontSize={20}>
-              {match?.home_score}
-            </Text>
-            :
-            <Text fontWeight={'bold'} fontSize={20}>
-              {match?.away_score}
-            </Text>
-          </Flex>
-        </Box>
+        )}
       </Box>
     </>
   );
