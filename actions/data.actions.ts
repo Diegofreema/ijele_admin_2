@@ -163,6 +163,8 @@ export const editMatch = async (matches: MatchType, id: number) => {
       ticket_price: matches?.ticket_price,
       league: matches?.league,
       RESULT: matches?.match_result,
+      vip_price: matches.vip_price,
+      vvip_price: matches.vvip_price,
     })
     .eq('id', id);
 
@@ -193,6 +195,8 @@ export const createMatch = async (matches: MatchType) => {
     away_team_image: matches.away_team_img,
     ticket_available: matches?.ticket_available,
     ticket_price: matches?.ticket_price,
+    vip_price: matches.vip_price,
+    vvip_price: matches.vvip_price,
   });
 
   if (error) {

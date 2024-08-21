@@ -176,11 +176,7 @@ export const MatchItem = ({ match }: { match: MatchesType }) => {
           </Flex>
         </CardBody>
         {notHome && (
-          <CardFooter
-            display={'flex'}
-            justifyItems={'space-between'}
-            alignItems={'center'}
-          >
+          <CardFooter display={'flex'} flexDir={'column'}>
             <Box width="100%">
               <Title small title="Result" />
               <Text fontWeight={'bold'}> {match?.RESULT}</Text>
@@ -191,8 +187,16 @@ export const MatchItem = ({ match }: { match: MatchesType }) => {
               </Flex>
             </Box>
             <Box>
-              <Text fontWeight={'bold'}>Ticket price</Text>
+              <Text fontWeight={'bold'}>Regular ticket price</Text>
               <Text fontWeight={'bold'}>₦{match?.ticket_price}</Text>
+            </Box>
+            <Box>
+              <Text fontWeight={'bold'}>VIP ticket price</Text>
+              <Text fontWeight={'bold'}>₦{match?.vip_price}</Text>
+            </Box>
+            <Box>
+              <Text fontWeight={'bold'}>VVIP ticket price</Text>
+              <Text fontWeight={'bold'}>₦{match?.vvip_price}</Text>
             </Box>
             <Box>
               <Text fontWeight={'bold'}>Ticket available</Text>

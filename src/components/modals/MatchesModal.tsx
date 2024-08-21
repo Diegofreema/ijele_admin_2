@@ -76,6 +76,8 @@ export function MatchModal({
     league: '',
     ticket_available: 0,
     ticket_price: 0,
+    vip_price: 0,
+    vvip_price: 0,
   });
 
   useEffect(() => {
@@ -96,6 +98,8 @@ export function MatchModal({
         league: matchValues?.league,
         ticket_available: matchValues?.ticket_available,
         ticket_price: matchValues?.ticket_price,
+        vip_price: matchValues?.vip_price,
+        vvip_price: matchValues?.vvip_price,
       });
     }
   }, [matchValues]);
@@ -196,12 +200,6 @@ export function MatchModal({
     onSubmit(values);
   };
 
-  const handleClose = async () => {
-    // setImage('');
-    // const { data, error } = await supabase.storage
-    //   .from('avatars')
-    //   .remove([folderPath]);
-  };
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -303,13 +301,35 @@ export function MatchModal({
               />
             </>
             <>
-              <label>Ticket price</label>
+              <label>Regular ticket price</label>
               <Input
                 width={'100%'}
                 placeholder="Ticket price in naira"
                 value={values.ticket_price}
                 onChange={(e) =>
                   setValues({ ...values, ticket_price: Number(e.target.value) })
+                }
+              />
+            </>
+            <>
+              <label>VIP ticket price</label>
+              <Input
+                width={'100%'}
+                placeholder="Ticket price in naira"
+                value={values.vip_price}
+                onChange={(e) =>
+                  setValues({ ...values, vip_price: Number(e.target.value) })
+                }
+              />
+            </>
+            <>
+              <label>VVIP ticket price</label>
+              <Input
+                width={'100%'}
+                placeholder="Ticket price in naira"
+                value={values.vvip_price}
+                onChange={(e) =>
+                  setValues({ ...values, vvip_price: Number(e.target.value) })
                 }
               />
             </>

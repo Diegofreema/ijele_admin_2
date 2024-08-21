@@ -93,6 +93,8 @@ export const Matches = ({ count, matches }: Props) => {
       setSubmitting(false);
     }
   };
+  console.log(matches);
+
   return (
     <>
       <MatchModal
@@ -108,7 +110,7 @@ export const Matches = ({ count, matches }: Props) => {
         </Flex>
         <SimpleGrid
           mt={{ base: 5, md: 10 }}
-          columns={{ base: 1, md: 3 }}
+          columns={{ base: 1, md: 2 }}
           gap={5}
         >
           {matches?.length > 0 &&

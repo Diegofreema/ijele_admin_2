@@ -57,6 +57,7 @@ const TicketCard = ({
   phone,
   redeemed,
   ticketId,
+  ticket_type,
 }: TicketType) => {
   const [redeemTicket, setRedeemTicket] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -107,6 +108,7 @@ const TicketCard = ({
         <FlexText text1="Email:" text2={email} />
         <FlexText text1="Used:" text2={redeemed ? 'Yes' : 'No'} />
         <FlexText text1="Phone Number:" text2={phone} />
+        <FlexText text1="Ticket Type:" text2={ticket_type} />
         <FlexText text1="Ticket ID:" text2={ticketId} />
       </CardBody>
       <CardFooter>

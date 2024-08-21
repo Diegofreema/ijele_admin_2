@@ -181,6 +181,8 @@ export type Database = {
           ticket_available: number | null;
           ticket_price: number | null;
           venue: string;
+          vip_price: number;
+          vvip_price: number;
         };
         Insert: {
           attendance?: number | null;
@@ -200,6 +202,8 @@ export type Database = {
           ticket_available?: number | null;
           ticket_price?: number | null;
           venue: string;
+          vip_price?: number;
+          vvip_price?: number;
         };
         Update: {
           attendance?: number | null;
@@ -219,6 +223,8 @@ export type Database = {
           ticket_available?: number | null;
           ticket_price?: number | null;
           venue?: string;
+          vip_price?: number;
+          vvip_price?: number;
         };
         Relationships: [];
       };
@@ -505,6 +511,7 @@ export type Database = {
           name: string;
           phone: string | null;
           redeemed: boolean | null;
+          ticket_type: Database['public']['Enums']['ticket_type'];
           ticketId: string | null;
         };
         Insert: {
@@ -515,6 +522,7 @@ export type Database = {
           name?: string;
           phone?: string | null;
           redeemed?: boolean | null;
+          ticket_type?: Database['public']['Enums']['ticket_type'];
           ticketId?: string | null;
         };
         Update: {
@@ -525,6 +533,7 @@ export type Database = {
           name?: string;
           phone?: string | null;
           redeemed?: boolean | null;
+          ticket_type?: Database['public']['Enums']['ticket_type'];
           ticketId?: string | null;
         };
         Relationships: [
@@ -657,6 +666,7 @@ export type Database = {
         | 'live'
         | 'postponed';
       ROLE: 'forward' | 'midfielder' | 'defender' | 'goalkeeper' | 'coach';
+      ticket_type: 'Regular' | 'VIP' | 'VVIP';
       VIDEO_TYPE: 'first team' | 'academy' | 'press conference';
     };
     CompositeTypes: {

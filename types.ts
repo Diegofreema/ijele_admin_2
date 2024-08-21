@@ -24,6 +24,7 @@ export type PType = {
   category: string;
 };
 export type MatchResult = Database['public']['Enums']['RESULT'];
+export type TicketTypeEnum = Database['public']['Enums']['ticket_type'];
 export type PositionEnum = Database['public']['Enums']['ROLE'];
 export type CatType = Database['public']['Enums']['VIDEO_TYPE'];
 export type DUTY = Database['public']['Enums']['DUTY'];
@@ -52,6 +53,8 @@ export type MatchType = {
   league: string;
   ticket_price: number;
   ticket_available: number;
+  vip_price: number;
+  vvip_price: number;
 };
 
 export type TypeMen = {
