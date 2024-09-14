@@ -35,7 +35,7 @@ export const Members = ({ members, count }: Props) => {
     router.push(`/site/members/search`);
   };
   return (
-    <Box>
+    <Box pb={10}>
       <Flex justifyContent={'space-between'} alignItems={'center'}>
         <Title title="Members" />
         <CustomButton
@@ -98,7 +98,7 @@ export const Members = ({ members, count }: Props) => {
       </Box>
       {newsHasNextPage && (
         <Flex justifyContent={'center'} mt={5}>
-          <Link href={`/site/news?page=${currentPage + 1}`} passHref>
+          <Link href={`/site/members?page=${currentPage + 1}`} passHref>
             <CustomButton title="Load more" onClick={() => {}} />
           </Link>
         </Flex>

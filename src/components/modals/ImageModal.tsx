@@ -255,9 +255,11 @@ export function UploadModal({
 
           {video && (
             <Flex flexDirection="column" gap={4} mt={10}>
-              <Text textColor="black" fontWeight="bold" textAlign="center">
-                or drop a link here
-              </Text>
+              {!link && (
+                <Text textColor="black" fontWeight="bold" textAlign="center">
+                  or drop a link here
+                </Text>
+              )}
 
               <Flex flexDirection={'column'} gap={3}>
                 {!imgUrl && (
@@ -292,15 +294,14 @@ export function UploadModal({
         </ModalBody>
 
         <ModalFooter>
-          {imgUrl && (
-            <CustomButton
-              loading={submitting}
-              title="Upload"
-              onClick={onSubmit}
-              flex={1}
-              mx={5}
-            />
-          )}
+          <CustomButton
+            loading={submitting}
+            title="Upload"
+            onClick={onSubmit}
+            flex={1}
+            mx={5}
+            isDisabled={!imgUrl && !link}
+          />
         </ModalFooter>
       </ModalContent>
     </Modal>
