@@ -3,19 +3,24 @@ import { PropsWithChildren, useState } from 'react';
 
 // Chakra imports
 import { Box, useColorModeValue } from '@chakra-ui/react';
-
+import Cookies from 'js-cookie';
 // Layout components
 import { SidebarContext } from 'contexts/SidebarContext';
 import { isWindowAvailable } from 'utils/navigation';
+import { redirect } from 'next/navigation';
 
 // Custom Chakra theme
 
 interface AuthProps extends PropsWithChildren {}
 
 export default function AuthLayout({ children }: AuthProps) {
+  const userId = Cookies.get('userId');
   // states and functions
   const [toggleSidebar, setToggleSidebar] = useState(false);
   const authBg = useColorModeValue('white', 'navy.900');
+  if (userId) {
+    return redirect('/site/home');
+  }
   if (isWindowAvailable()) document.documentElement.dir = 'ltr';
   return (
     <Box>

@@ -4,6 +4,7 @@ import { createClient } from '../util/supabase/server';
 import { revalidatePath } from 'next/cache';
 import { MatchType, MemberType, PType, TicketType, TypeMen } from '../types';
 import { generateRandomString } from 'utils/helper';
+import { cookies } from 'next/headers';
 
 export const getTotalPlayers = async () => {
   const suapabase = createClient();
@@ -723,5 +724,23 @@ export const updateTicketStatus = async (id: number, matchId: string) => {
     return { message: 'failed' };
   }
   // revalidatePath(`/site/events/tickets?id=${matchId}`);
+  return { message: 'success' };
+};
+
+export const login = async (username: string, password: string) => {
+  console.log(username, password);
+
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from('admin')
+    .select()
+    .eq('username', username)
+    .eq('password', password)
+    .single();
+  if (error) {
+    console.log(error);
+    return { message: 'failed' };
+  }
+  cookies().set('userId', data?.id.toString());
   return { message: 'success' };
 };

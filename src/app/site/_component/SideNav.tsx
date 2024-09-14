@@ -1,5 +1,7 @@
 'use client';
 import { Box, Flex, Icon, OrderedList, Text } from '@chakra-ui/react';
+import { CustomButton } from 'components/ui/CustomButton';
+import Cookies from 'js-cookie';
 import { User2 } from 'lucide';
 import {
   Home,
@@ -13,7 +15,7 @@ import {
   List,
 } from 'lucide-react';
 import { Link } from 'next-view-transitions';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 interface Props {}
 
@@ -165,6 +167,12 @@ const links = [
 ];
 
 export const SideNav = ({}: Props) => {
+  const router = useRouter();
+
+  const signOut = async () => {
+    Cookies.remove('userId');
+    router.replace('/auth/sign-in');
+  };
   return (
     <Box
       minH={'100vh'}
@@ -183,6 +191,13 @@ export const SideNav = ({}: Props) => {
       {links.map((link, i) => (
         <LinkItem link={link} key={i} />
       ))}
+      <CustomButton
+        title={'Logout'}
+        onClick={() => signOut()}
+        mx={3}
+        mt="auto"
+        mb={10}
+      />
     </Box>
   );
 };
