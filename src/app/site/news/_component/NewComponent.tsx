@@ -51,7 +51,7 @@ export const NewsComponent = ({ count, news }: Props) => {
       setUploading(true);
       try {
         const file = acceptedFiles[0];
-        const filePath = `/news/${file?.name}`;
+        const filePath = `/news/${file?.name}.${Math.random() * 10000}`;
         const { data, error } = await supabase.storage
           .from('files')
           .upload(filePath, file);
@@ -108,7 +108,7 @@ export const NewsComponent = ({ count, news }: Props) => {
         news: values.articles,
         title: values.title,
         category: values.category,
-        id: Math.floor(Math.random() * 10),
+        id: Math.floor(Math.random() * 100),
       });
       if (error) {
         setIsSubmitting(false);
