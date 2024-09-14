@@ -20,7 +20,6 @@ export const CustomButton = ({
       {...props}
       onClick={onClick}
       isLoading={loading}
-      isDisabled={loading}
       bg={bg}
       color="white"
       borderRadius={borderRadius}
