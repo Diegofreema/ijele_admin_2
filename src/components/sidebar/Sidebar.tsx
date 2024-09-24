@@ -53,7 +53,7 @@ function Sidebar(props: SidebarProps) {
         bg={sidebarBg}
         transition={variantChange}
         w="300px"
-        h="100vh"
+        h="100dvh"
         m={sidebarMargins}
         minH="100%"
         overflowX="hidden"

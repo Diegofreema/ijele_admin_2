@@ -6,7 +6,7 @@ interface Props {}
 export const Loading = ({}: Props) => {
   return (
     <Box
-      minH={'100vh'}
+      minH={'100dvh'}
       display={'flex'}
       justifyContent={'center'}
       alignItems={'center'}

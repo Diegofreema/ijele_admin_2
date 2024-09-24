@@ -175,7 +175,7 @@ export const SideNav = ({}: Props) => {
   };
   return (
     <Box
-      minH={'100vh'}
+      minH={'100dvh'}
       width={200}
       position={'fixed'}
       left={0}

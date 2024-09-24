@@ -17,7 +17,7 @@ export default function Error({
 
   return (
     <Flex
-      h="100vh"
+      h="100dvh"
       justifyContent="center"
       alignItems="center"
       flexDirection={'column'}

@@ -8,7 +8,7 @@ interface Props {
 
 export const MainApp = ({ children }: Props) => {
   return (
-    <Box minH="100vh" ml={200} px={4} pt={10}>
+    <Box minH="100dvh" ml={200} px={4} pt={10}>
       <Wrapper>{children}</Wrapper>
     </Box>
   );
